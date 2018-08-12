@@ -8,6 +8,8 @@ packages to be installed
     sematic-ui-css (yarn add semantic-ui-css)
 
 React basics
-Types of react-components :-
-1)Functional Component
-2)class component
+
+    Types of react-components :-
+
+    	1)Functional Component
+    	2)class component
