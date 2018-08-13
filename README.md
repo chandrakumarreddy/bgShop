@@ -13,3 +13,5 @@ React basics
 
     	1)Functional Component
     	2)class component
+
+    Making resuable components with props
