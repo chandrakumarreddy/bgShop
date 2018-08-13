@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Price from "./Price";
+import Featured from "./Featured";
 
 const GameCard = ({ game }) => (
 	<div className="ui card">
 		<div className="image">
 			<Price cents={game.price} />
+			<Featured featured={game.featured} />
 			<img src={game.thumbnail} alt="Game Card" />
 		</div>
 		<div className="content">
-			<a href="#" className="header">
-				{game.name}
-			</a>
+			<a className="header">{game.name}</a>
 			<div className="meta">
 				<i className="icon users" />
 				{game.players}
@@ -30,7 +30,8 @@ GameCard.propTypes = {
 		thumbnail: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
 		players: PropTypes.string.isRequired,
-		duration: PropTypes.number.isRequired
+		duration: PropTypes.number.isRequired,
+		featured: PropTypes.bool.isRequired
 	}).isRequired
 };
 

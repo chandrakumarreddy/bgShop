@@ -6,6 +6,7 @@ plugins to be installed
 packages to be installed
 
     sematic-ui-css (yarn add semantic-ui-css)
+    lodash(yarn add lodash)
 
 React basics
 
@@ -17,3 +18,4 @@ React basics
     Making resuable components with props
 
     Functional component doesn't have state property.Only have props which are immutable.class component has state property which is mutable.
+    State can be inialised inside constructor or as class component property;
