@@ -1,10 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Featured = ({ featured }) => (
+const Featured = ({ featured, toggleFeatured, gameId }) => (
 	<span>
 		{featured ? (
-			<a className="ui right yellow corner label">
+			<a
+				className="ui right yellow corner label"
+				onClick={() => toggleFeatured(gameId)}
+			>
 				<i className="star icon" />
 			</a>
 		) : (
@@ -16,7 +19,8 @@ const Featured = ({ featured }) => (
 );
 
 Featured.propTypes = {
-	featured: PropTypes.bool.isRequired
+	featured: PropTypes.bool.isRequired,
+	gameId: PropTypes.number.isRequired
 };
 
 export default Featured;
