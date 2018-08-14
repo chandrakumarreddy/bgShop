@@ -24,8 +24,8 @@ const GameCard = ({ game, toggleFeatured }) => (
 				<i className="icon wait" />
 				{game.duration}
 				min.
-				<span class="right floated eyw">
-					<i class="eye icon" />
+				<span className="right floated eye">
+					<i className="eye icon" />
 				</span>
 			</div>
 		</div>
