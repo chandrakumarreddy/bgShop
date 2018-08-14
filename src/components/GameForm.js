@@ -2,13 +2,23 @@ import React, { Component } from "react";
 
 class GameForm extends Component {
 	state = {
-		name: ""
+		name: "",
+		duration: "",
+		players: "",
+		price: "",
+		description: ""
 	};
 	formHandler = e => {
 		e.preventDefault();
 		console.log(this.state);
 	};
-	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+	handleChange = e =>
+		this.setState({
+			[e.target.name]:
+				e.target.type === "number"
+					? Number(e.target.value, 10)
+					: e.target.value
+		});
 	render() {
 		return (
 			<form className="ui form" onSubmit={this.formHandler}>
@@ -32,6 +42,38 @@ class GameForm extends Component {
 						onChange={this.handleChange}
 						value={this.state.description}
 					/>
+				</div>
+				<div className="fields">
+					<div className="field">
+						<label>Price</label>
+						<input
+							placeholder="price in $"
+							type="number"
+							name="price"
+							value={this.state.price}
+							onChange={this.handleChange}
+						/>
+					</div>
+					<div className="field">
+						<label>Duration</label>
+						<input
+							placeholder="duration in min"
+							type="number"
+							name="duration"
+							value={this.state.duration}
+							onChange={this.handleChange}
+						/>
+					</div>
+					<div className="field">
+						<label>Players</label>
+						<input
+							placeholder="Players"
+							type="text"
+							name="players"
+							value={this.state.players}
+							onChange={this.handleChange}
+						/>
+					</div>
 				</div>
 				<button className="ui button" type="submit">
 					Submit
