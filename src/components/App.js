@@ -73,6 +73,16 @@ class App extends React.Component {
 			])
 		});
 
+	saveGame = game => (game._id ? this.updateGame(game) : this.submit(game));
+
+	updateGame = game =>
+		this.setState({
+			games: this.state.games.map(
+				item => (item._id === game._id ? game : item)
+			),
+			showForm: false
+		});
+
 	editGame = game => this.setState({ selected: game, showForm: true });
 
 	toggleFeatured = gameId =>
@@ -97,7 +107,7 @@ class App extends React.Component {
 						<div className="six wide column">
 							<GameForm
 								cancel={this.hideForm}
-								submit={this.submit}
+								submit={this.saveGame}
 								game={this.state.selected}
 							/>
 						</div>
