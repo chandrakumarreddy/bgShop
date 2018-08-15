@@ -3,15 +3,9 @@ import _orderBy from "lodash/orderBy";
 import GameList from "./GameList";
 import GameForm from "./GameForm";
 
-var publishers = [
-	{ _id: 1, name: "ndtv" },
-	{ _id: 2, name: "ZeeTv" },
-	{ _id: 3, name: "sunTv" }
-];
 var games = [
 	{
 		_id: 1,
-		publisher: 1,
 		name: "Quadrapolis",
 		price: 3299,
 		thumbnail:
@@ -22,7 +16,6 @@ var games = [
 	},
 	{
 		_id: 2,
-		publisher: 1,
 		name: "Mysterium",
 		price: 4032,
 		thumbnail:
@@ -33,7 +26,6 @@ var games = [
 	},
 	{
 		_id: 3,
-		publisher: 2,
 		name: "Scrabble",
 		price: 6008,
 		thumbnail:
@@ -44,7 +36,6 @@ var games = [
 	},
 	{
 		_id: 4,
-		publisher: 2,
 		name: "Splendor",
 		price: 808,
 		thumbnail:
@@ -82,7 +73,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="ui container">
-				<GameForm publishers={publishers} />
+				<GameForm />
 				<GameList
 					games={this.state.games}
 					toggleFeatured={this.toggleFeatured}

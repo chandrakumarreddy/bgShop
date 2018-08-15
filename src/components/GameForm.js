@@ -1,25 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import ReactImageFallback from "react-image-fallback";
 
-const tags = [
-	{
-		_id: 1,
-		tag: "comics"
-	},
-	{
-		_id: 2,
-		tag: "Economics"
-	},
-	{
-		_id: 3,
-		tag: "sports"
-	}
-];
-const genres = [
-	{ _id: 1, genre: "abstract" },
-	{ _id: 2, genre: "euro" },
-	{ _id: 3, genre: "amlipier" }
-];
 class GameForm extends Component {
 	state = {
 		name: "",
@@ -28,9 +9,7 @@ class GameForm extends Component {
 		price: "",
 		description: "",
 		featured: true,
-		tags: [],
-		genre: 1,
-		publisher: 0
+		thumbnail: ""
 	};
 	formHandler = e => {
 		e.preventDefault();
@@ -57,112 +36,90 @@ class GameForm extends Component {
 	render() {
 		return (
 			<form className="ui form" onSubmit={this.formHandler}>
-				<div className="field">
-					<label>name</label>
-					<input
-						placeholder="Full Game Title"
-						type="text"
-						id="name"
-						name="name"
-						value={this.state.name}
-						onChange={this.handleChange}
-					/>
-				</div>
-				<div className="field">
-					<label>Description</label>
-					<textarea
-						rows="4"
-						name="description"
-						id="description"
-						onChange={this.handleChange}
-						value={this.state.description}
-					/>
-				</div>
-				<div className="fields">
-					<div className="field">
-						<label>Price</label>
-						<input
-							placeholder="price in $"
-							type="number"
-							name="price"
-							value={this.state.price}
-							onChange={this.handleChange}
-						/>
-					</div>
-					<div className="field">
-						<label>Duration</label>
-						<input
-							placeholder="duration in min"
-							type="number"
-							name="duration"
-							value={this.state.duration}
-							onChange={this.handleChange}
-						/>
-					</div>
-					<div className="field">
-						<label>Players</label>
-						<input
-							placeholder="Players"
-							type="text"
-							name="players"
-							value={this.state.players}
-							onChange={this.handleChange}
-						/>
-					</div>
-				</div>
-				<div className="ui checkbox field">
-					<input
-						name="featured"
-						type="checkbox"
-						id="featured"
-						checked={this.state.featured}
-						onChange={this.handleCheckBoxChange}
-					/>
-					<label>Featured?</label>
-				</div>
-				<div className="field">
-					<label>Tags</label>
-					{tags.map(tag => (
-						<div className="inline field" key={tag._id}>
+				<div className="ui grid">
+					<div className="twelve wide column">
+						<div className="field">
+							<label>name</label>
 							<input
+								placeholder="Full Game Title"
+								type="text"
+								id="name"
+								name="name"
+								value={this.state.name}
+								onChange={this.handleChange}
+							/>
+						</div>
+						<div className="field">
+							<label>Description</label>
+							<textarea
+								rows="4"
+								name="description"
+								id="description"
+								onChange={this.handleChange}
+								value={this.state.description}
+							/>
+						</div>
+						<div className="fields">
+							<div className="field">
+								<label>Price</label>
+								<input
+									placeholder="price in $"
+									type="number"
+									name="price"
+									value={this.state.price}
+									onChange={this.handleChange}
+								/>
+							</div>
+							<div className="field">
+								<label>Duration</label>
+								<input
+									placeholder="duration in min"
+									type="number"
+									name="duration"
+									value={this.state.duration}
+									onChange={this.handleChange}
+								/>
+							</div>
+							<div className="field">
+								<label>Players</label>
+								<input
+									placeholder="Players"
+									type="text"
+									name="players"
+									value={this.state.players}
+									onChange={this.handleChange}
+								/>
+							</div>
+						</div>
+						<div className="ui checkbox field">
+							<input
+								name="featured"
 								type="checkbox"
-								id={`tag-${tag._id}`}
-								checked={this.state.tags.includes(tag._id)}
-								onChange={() => this.toggleCheckbox(tag)}
+								id="featured"
+								checked={this.state.featured}
+								onChange={this.handleCheckBoxChange}
 							/>
-							<label>{tag.tag}</label>
+							<label>Featured?</label>
 						</div>
-					))}
-				</div>
-				<div className="field">
-					<label>Genre</label>
-					{genres.map(genre => (
-						<div className="inline filed" key={genre._id}>
+						<div className="field">
+							<label>Thumbnail</label>
 							<input
-								type="radio"
-								id={`genre-${genre._id}`}
-								checked={this.state.genre === genre._id}
-								onChange={() => this.handleRadioChange(genre)}
+								type="text"
+								id="thumbnail"
+								name="thumbnail"
+								value={this.state.thumbnail}
+								onChange={this.handleChange}
 							/>
 						</div>
-					))}
-				</div>
-				<div className="field">
-					<label>Publisher</label>
-					<select
-						onChange={this.handleChange}
-						name="publisher"
-						id="publisher"
-					>
-						<option value="0" key={0}>
-							please select one publisher
-						</option>
-						{this.props.publishers.map(publisher => (
-							<option value={publisher._id} key={publisher._id}>
-								{publisher.name}
-							</option>
-						))}
-					</select>
+					</div>
+					<div className="four wide column">
+						<ReactImageFallback
+							src={this.state.thumbnail}
+							fallbackImage="http://via.placeholder.com/250x250"
+							className="image"
+							alt="Thumbnail"
+						/>
+					</div>
 				</div>
 				<div className="field">
 					<button className="ui button" type="submit">
@@ -173,18 +130,5 @@ class GameForm extends Component {
 		);
 	}
 }
-
-GameForm.propTypes = {
-	publishers: PropTypes.arrayOf(
-		PropTypes.shape({
-			_id: PropTypes.number.isRequired
-			//name: PropTypes.String.isRequired
-		}).isRequired
-	)
-};
-
-GameForm.defaultProps = {
-	publishers: []
-};
 
 export default GameForm;
