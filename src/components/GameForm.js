@@ -17,8 +17,25 @@ class GameForm extends Component {
 	};
 	formHandler = e => {
 		e.preventDefault();
-		console.log(this.state.data);
+		const errors = this.validate(this.state.data);
+		this.setState({ errors });
+		if (Object.keys(errors).length === 0) {
+			console.log(this.state.data);
+		}
 	};
+	validate(data) {
+		const errors = {};
+		if (!data.name) errors.name = "This name field can't be empty";
+		if (!data.description)
+			errors.description = "This description field can't be empty";
+		if (!data.thumbnail)
+			errors.thumbnail = "This thumbnail field can't be empty";
+		if (!data.price) errors.price = "This price field can't be empty";
+		if (!data.duration)
+			errors.duration = "This duration field can't be empty";
+		if (!data.players) errors.players = "This players field can't be empty";
+		return errors;
+	}
 	handleChange = e =>
 		this.setState({
 			data: {
