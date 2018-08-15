@@ -14,7 +14,11 @@ const tags = [
 		tag: "sports"
 	}
 ];
-
+const genres = [
+	{ _id: 1, genre: "abstract" },
+	{ _id: 2, genre: "euro" },
+	{ _id: 3, genre: "amlipier" }
+];
 class GameForm extends Component {
 	state = {
 		name: "",
@@ -23,7 +27,8 @@ class GameForm extends Component {
 		price: "",
 		description: "",
 		featured: true,
-		tags: []
+		tags: [],
+		genre: 1
 	};
 	formHandler = e => {
 		e.preventDefault();
@@ -46,6 +51,7 @@ class GameForm extends Component {
 			  })
 			: this.setState({ tags: [...this.state.tags, e._id] });
 	};
+	handleRadioChange = genre => this.setState({ genre: genre._id });
 	render() {
 		return (
 			<form className="ui form" onSubmit={this.formHandler}>
@@ -123,6 +129,19 @@ class GameForm extends Component {
 								onChange={() => this.toggleCheckbox(tag)}
 							/>
 							<label>{tag.tag}</label>
+						</div>
+					))}
+				</div>
+				<div className="field">
+					<label>Genre</label>
+					{genres.map(genre => (
+						<div className="inline filed" key={genre._id}>
+							<input
+								type="radio"
+								id={`genre-${genre._id}`}
+								checked={this.state.genre === genre._id}
+								onChange={() => this.handleRadioChange(genre)}
+							/>
 						</div>
 					))}
 				</div>
