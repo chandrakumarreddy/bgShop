@@ -1,29 +1,38 @@
 import React, { Component } from "react";
 import ReactImageFallback from "react-image-fallback";
+import FieldNameValidation from "./FieldNameValidation";
 
 class GameForm extends Component {
 	state = {
-		name: "",
-		duration: "",
-		players: "",
-		price: "",
-		description: "",
-		featured: true,
-		thumbnail: ""
+		data: {
+			name: "",
+			duration: "",
+			players: "",
+			price: "",
+			description: "",
+			featured: true,
+			thumbnail: ""
+		},
+		errors: {}
 	};
 	formHandler = e => {
 		e.preventDefault();
-		console.log(this.state);
+		console.log(this.state.data);
 	};
 	handleChange = e =>
 		this.setState({
-			[e.target.name]:
-				e.target.type === "number"
-					? Number(e.target.value, 10)
-					: e.target.value
+			data: {
+				...this.state.data,
+				[e.target.name]:
+					e.target.type === "number"
+						? Number(e.target.value, 10)
+						: e.target.value
+			}
 		});
 	handleCheckBoxChange = e => {
-		this.setState({ [e.target.name]: e.target.checked });
+		this.setState({
+			data: { ...this.state.data, [e.target.name]: e.target.checked }
+		});
 	};
 	toggleCheckbox = e => {
 		this.state.tags.includes(e._id)
@@ -32,61 +41,103 @@ class GameForm extends Component {
 			  })
 			: this.setState({ tags: [...this.state.tags, e._id] });
 	};
-	handleRadioChange = genre => this.setState({ genre: genre._id });
+	handleRadioChange = genre => this.setState({ data: { genre: genre._id } });
 	render() {
+		const { data, errors } = this.state;
 		return (
 			<form className="ui form" onSubmit={this.formHandler}>
 				<div className="ui grid">
 					<div className="twelve wide column">
-						<div className="field">
+						<div className={errors.name ? "field error" : "field"}>
 							<label>name</label>
 							<input
 								placeholder="Full Game Title"
 								type="text"
 								id="name"
 								name="name"
-								value={this.state.name}
+								value={data.name}
 								onChange={this.handleChange}
 							/>
+							<FieldNameValidation
+								type="error"
+								content={errors.name}
+							/>
 						</div>
-						<div className="field">
+						<div
+							className={
+								errors.description ? "field error" : "field"
+							}
+						>
 							<label>Description</label>
 							<textarea
-								rows="4"
 								name="description"
 								id="description"
 								onChange={this.handleChange}
-								value={this.state.description}
+								value={data.description}
+							/>
+							<FieldNameValidation
+								type="error"
+								content={errors.description}
 							/>
 						</div>
+						<ReactImageFallback
+							src={data.thumbnail}
+							fallbackImage="http://via.placeholder.com/250x250"
+							className="image"
+							alt="Thumbnail"
+						/>
+					</div>
+				</div>
+				<div className="ui grid">
+					<div className="twelve wide column">
 						<div className="fields">
-							<div className="field">
+							<div
+								className={
+									errors.price ? "field error" : "field"
+								}
+							>
 								<label>Price</label>
 								<input
 									placeholder="price in $"
 									type="number"
 									name="price"
-									value={this.state.price}
+									value={data.price}
 									onChange={this.handleChange}
 								/>
+								<FieldNameValidation
+									type="error"
+									content={errors.price}
+								/>
 							</div>
-							<div className="field">
+							<div
+								className={
+									errors.duration ? "field error" : "field"
+								}
+							>
 								<label>Duration</label>
 								<input
 									placeholder="duration in min"
 									type="number"
 									name="duration"
-									value={this.state.duration}
+									value={data.duration}
 									onChange={this.handleChange}
 								/>
+								<FieldNameValidation
+									type="error"
+									content={errors.duration}
+								/>
 							</div>
-							<div className="field">
+							<div
+								className={
+									errors.name ? "field error" : "field"
+								}
+							>
 								<label>Players</label>
 								<input
 									placeholder="Players"
 									type="text"
 									name="players"
-									value={this.state.players}
+									value={data.players}
 									onChange={this.handleChange}
 								/>
 							</div>
@@ -96,19 +147,27 @@ class GameForm extends Component {
 								name="featured"
 								type="checkbox"
 								id="featured"
-								checked={this.state.featured}
+								checked={data.featured}
 								onChange={this.handleCheckBoxChange}
 							/>
 							<label>Featured?</label>
 						</div>
-						<div className="field">
+						<div
+							className={
+								errors.thumbnail ? "field error" : "field"
+							}
+						>
 							<label>Thumbnail</label>
 							<input
 								type="text"
 								id="thumbnail"
 								name="thumbnail"
-								value={this.state.thumbnail}
+								value={data.thumbnail}
 								onChange={this.handleChange}
+							/>
+							<FieldNameValidation
+								type="error"
+								content={errors.thumbnail}
 							/>
 						</div>
 						<div className="ui fluid buttons">
@@ -123,14 +182,6 @@ class GameForm extends Component {
 								cancel
 							</a>
 						</div>
-					</div>
-					<div className="four wide column">
-						<ReactImageFallback
-							src={this.state.thumbnail}
-							fallbackImage="http://via.placeholder.com/250x250"
-							className="image"
-							alt="Thumbnail"
-						/>
 					</div>
 				</div>
 			</form>
