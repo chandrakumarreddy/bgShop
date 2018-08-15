@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import GameCard from "./GameCard";
 import Message from "./Message";
 
-const GameList = ({ games, toggleFeatured, editGame }) => (
+const GameList = ({ games, toggleFeatured, editGame, deleteGame }) => (
 	<div className="ui four cards">
 		{games.length === 0 ? (
 			<Message
@@ -18,6 +18,7 @@ const GameList = ({ games, toggleFeatured, editGame }) => (
 					game={game}
 					toggleFeatured={toggleFeatured}
 					editGame={editGame}
+					deleteGame={deleteGame}
 				/>
 			))
 		)}
