@@ -1,12 +1,29 @@
 import React, { Component } from "react";
 
+const tags = [
+	{
+		_id: 1,
+		tag: "comics"
+	},
+	{
+		_id: 2,
+		tag: "Economics"
+	},
+	{
+		_id: 3,
+		tag: "sports"
+	}
+];
+
 class GameForm extends Component {
 	state = {
 		name: "",
 		duration: "",
 		players: "",
 		price: "",
-		description: ""
+		description: "",
+		featured: true,
+		tags: []
 	};
 	formHandler = e => {
 		e.preventDefault();
@@ -19,6 +36,16 @@ class GameForm extends Component {
 					? Number(e.target.value, 10)
 					: e.target.value
 		});
+	handleCheckBoxChange = e => {
+		this.setState({ [e.target.name]: e.target.checked });
+	};
+	toggleCheckbox = e => {
+		this.state.tags.includes(e._id)
+			? this.setState({
+					tags: this.state.tags.filter(tag => tag !== e._id)
+			  })
+			: this.setState({ tags: [...this.state.tags, e._id] });
+	};
 	render() {
 		return (
 			<form className="ui form" onSubmit={this.formHandler}>
@@ -75,9 +102,35 @@ class GameForm extends Component {
 						/>
 					</div>
 				</div>
-				<button className="ui button" type="submit">
-					Submit
-				</button>
+				<div className="ui checkbox field">
+					<input
+						name="featured"
+						type="checkbox"
+						id="featured"
+						checked={this.state.featured}
+						onChange={this.handleCheckBoxChange}
+					/>
+					<label>Featured?</label>
+				</div>
+				<div className="field">
+					<label>Tags</label>
+					{tags.map(tag => (
+						<div className="inline field" key={tag._id}>
+							<input
+								type="checkbox"
+								id={`tag-${tag._id}`}
+								checked={this.state.tags.includes(tag._id)}
+								onChange={() => this.toggleCheckbox(tag)}
+							/>
+							<label>{tag.tag}</label>
+						</div>
+					))}
+				</div>
+				<div className="field">
+					<button className="ui button" type="submit">
+						Submit
+					</button>
+				</div>
 			</form>
 		);
 	}
