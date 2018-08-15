@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 
 const TopNavBar = ({ showForm }) => (
 	<div className="ui secondary pointing menu">
-		<a className="active item">BgShop</a>
+		<a className="active item">BGShop</a>
 		<a className="item" onClick={showForm}>
-			Add image
+			<i class="icon plus" />
+			Add Game to shop
 		</a>
 	</div>
 );

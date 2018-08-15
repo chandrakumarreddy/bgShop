@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Price from "./Price";
 import Featured from "./Featured";
 
-const GameCard = ({ game, toggleFeatured }) => (
+const GameCard = ({ game, toggleFeatured, editGame }) => (
 	<div className="ui card">
 		<div className="image">
 			<Price cents={game.price} />
@@ -27,6 +27,19 @@ const GameCard = ({ game, toggleFeatured }) => (
 				<span className="right floated eye">
 					<i className="eye icon" />
 				</span>
+			</div>
+		</div>
+		<div className="extra content">
+			<div className="ui two buttons">
+				<a
+					className="ui green button basic"
+					onClick={() => editGame(game)}
+				>
+					<i className="icon edit" />
+				</a>
+				<a className="ui red button basic">
+					<i className="icon trash" />
+				</a>
 			</div>
 		</div>
 	</div>

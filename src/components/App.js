@@ -50,7 +50,8 @@ var games = [
 class App extends React.Component {
 	state = {
 		games: [],
-		showForm: false
+		showForm: false,
+		selected: {}
 	};
 	componentDidMount() {
 		this.setState({
@@ -60,8 +61,10 @@ class App extends React.Component {
 	sortGames(games) {
 		return _orderBy(games, ["featured", "name"], ["desc", "asc"]);
 	}
-	showForm = () => this.setState({ showForm: true });
-	hideForm = () => this.setState({ showForm: false });
+	showForm = () => this.setState({ showForm: true, selected: {} });
+
+	hideForm = () => this.setState({ showForm: false, selected: {} });
+
 	submit = game =>
 		this.setState({
 			games: this.sortGames([
@@ -69,6 +72,9 @@ class App extends React.Component {
 				{ ...game, _id: this.state.games.length + 1 }
 			])
 		});
+
+	editGame = game => this.setState({ selected: game, showForm: true });
+
 	toggleFeatured = gameId =>
 		this.setState({
 			games: this.sortGames(
@@ -92,6 +98,7 @@ class App extends React.Component {
 							<GameForm
 								cancel={this.hideForm}
 								submit={this.submit}
+								game={this.state.selected}
 							/>
 						</div>
 					)}
@@ -99,6 +106,7 @@ class App extends React.Component {
 						<GameList
 							games={this.state.games}
 							toggleFeatured={this.toggleFeatured}
+							editGame={this.editGame}
 						/>
 					</div>
 				</div>

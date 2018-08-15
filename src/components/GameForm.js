@@ -3,19 +3,35 @@ import ReactImageFallback from "react-image-fallback";
 import FieldNameValidation from "./FieldNameValidation";
 import PropTypes from "prop-types";
 
+const initialData = {
+	_id: null,
+	name: "",
+	duration: "",
+	players: "",
+	price: "",
+	description: "",
+	featured: true,
+	thumbnail: ""
+};
 class GameForm extends Component {
 	state = {
-		data: {
-			name: "",
-			duration: "",
-			players: "",
-			price: "",
-			description: "",
-			featured: true,
-			thumbnail: ""
-		},
+		data: initialData,
 		errors: {}
 	};
+
+	componentDidMount() {
+		if (this.props.game._id) {
+			this.setState({ data: this.props.game });
+		}
+	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.game._id && nextProps.game._id !== this.state.data._id) {
+			this.setState({ data: nextProps.game });
+		}
+		if (!nextProps.game._id) {
+			this.setState({ data: initialData });
+		}
+	}
 	formHandler = e => {
 		e.preventDefault();
 		const errors = this.validate(this.state.data);
