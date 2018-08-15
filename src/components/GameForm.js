@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactImageFallback from "react-image-fallback";
 import FieldNameValidation from "./FieldNameValidation";
+import PropTypes from "prop-types";
 
 class GameForm extends Component {
 	state = {
@@ -20,7 +21,7 @@ class GameForm extends Component {
 		const errors = this.validate(this.state.data);
 		this.setState({ errors });
 		if (Object.keys(errors).length === 0) {
-			console.log(this.state.data);
+			this.props.submit(this.state.data);
 		}
 	};
 	validate(data) {
@@ -206,4 +207,7 @@ class GameForm extends Component {
 	}
 }
 
+GameForm.propTypes = {
+	submit: PropTypes.func.isRequired
+};
 export default GameForm;
