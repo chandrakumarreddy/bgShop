@@ -111,6 +111,18 @@ class GameForm extends Component {
 								onChange={this.handleChange}
 							/>
 						</div>
+						<div className="ui fluid buttons">
+							<button className="ui button primary" type="submit">
+								create
+							</button>
+							<div className="or" />
+							<a
+								className="ui cancel button"
+								onClick={this.props.cancel}
+							>
+								cancel
+							</a>
+						</div>
 					</div>
 					<div className="four wide column">
 						<ReactImageFallback
@@ -120,11 +132,6 @@ class GameForm extends Component {
 							alt="Thumbnail"
 						/>
 					</div>
-				</div>
-				<div className="field">
-					<button className="ui button" type="submit">
-						Submit
-					</button>
 				</div>
 			</form>
 		);
