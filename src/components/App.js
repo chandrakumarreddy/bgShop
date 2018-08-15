@@ -3,6 +3,8 @@ import _orderBy from "lodash/orderBy";
 import GameList from "./GameList";
 import GameForm from "./GameForm";
 import TopNavBar from "./TopNavBar";
+import Login from "./Login";
+import SignUp from "./SignUp";
 
 var games = [
 	{
@@ -93,6 +95,8 @@ class App extends React.Component {
 						/>
 					</div>
 				</div>
+				<Login />
+				<SignUp />
 			</div>
 		);
 	}
